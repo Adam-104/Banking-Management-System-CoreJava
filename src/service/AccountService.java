@@ -27,38 +27,54 @@ public class AccountService {
         System.out.println("1. Savings Account");
         System.out.println("2. Current Account");
 
-        System.out.println("Enter Your Choice: ");
+        System.out.print("Enter Your Choice : ");
         int type = scanner.nextInt();
 
-        System.out.println("Enter your Account Number: ");
-        long accountNumber = scanner.nextLong();
+        if(type != 1 && type != 2){
+            throw new BankException("Invalid Account Type.");
+        }
+
+        long accountNumber = repository.generateUniqueAccountNumber();
         scanner.nextLine();
 
-       Account exixtingAccount = repository.findByAccountNumber(accountNumber);
+        System.out.print("Enter Customer Name : ");
+        String customerName = scanner.nextLine().trim();
 
-       if (exixtingAccount != null){
-           throw  new AccountAlreadyExistsException("Account already exists");
-       }
+        if (customerName.isEmpty()){
+            throw new BankException("Customer name cannot be  empty");
+        }
 
-        System.out.println("Enter Customer Name: ");
-        String customerName = scanner.nextLine();
-
-        System.out.println("Create 4 DIGIT PIN: ");
+        System.out.print("Create 4 DIGIT PIN : ");
         int pin = scanner.nextInt();
 
-        System.out.println("Enter Initial Deposit: ");
+        if (pin < 1000 || pin > 9999){
+            throw new BankException("PIN must contain only 4 digits");
+        }
+
+        System.out.print("Enter Initial Deposit : ");
         double balance = scanner.nextDouble();
 
+        if (balance <= 0){
+            throw new BankException("Initial deposit must be greater than zero.");
+        }
+
         Account account;
+
         if(type == 1){
             account = new SavingsAccount(accountNumber, customerName, pin, balance);
         } else {
             account = new CurrentAccount(accountNumber, customerName, pin, balance);
         }
+
         repository.addAccount(account);
 
-        notificationService.sendNotification("Account Created Successfully.");
+        notificationService.sendNotification(
+                "Account Created Successfully."
+        );
+        System.out.println("-------------------------------------");
         System.out.println("\n Account Created Successfully!");
+        System.out.println("Generated Account Number: " + accountNumber);
+        System.out.println("-------------------------------------");
 
     }
 
@@ -67,14 +83,14 @@ public class AccountService {
             System.out.println("No Accounts Found!");
             return;
         }
-        System.out.println("\n============ Account LIST ============");
+        System.out.println("\n============ ACCOUNT LIST ============");
 
         for(Account account : repository.getAccounts()){
             System.out.println("Account Number : " + account.getAccountNumber());
             System.out.println("Customer Name  : " + account.getCustomerName());
-            System.out.println("Pin            : " + account.getPin());
+//            System.out.println("Pin            : " + account.getPin());
             System.out.println("Balance        : " + account.getBalance());
-           account.accountFeatures();
+            account.accountFeatures();
             System.out.println("-------------------------------------");
             System.out.println();
         }

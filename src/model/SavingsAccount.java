@@ -14,6 +14,6 @@ public class SavingsAccount extends Account {
 
     @Override
     public void accountFeatures(){
-        System.out.println("Interest Rate: " + interestRate + "%");
+        System.out.println("Interest Rate : " + interestRate + "%");
     }
 }

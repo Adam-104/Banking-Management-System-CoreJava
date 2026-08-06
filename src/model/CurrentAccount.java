@@ -15,6 +15,6 @@ public class CurrentAccount extends Account {
 
     @Override
     public void accountFeatures(){
-        System.out.println("Overdraft Limit: " + overdraftLimit);
+        System.out.println("Overdraft Limit : " + overdraftLimit);
     }
 }

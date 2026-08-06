@@ -1,94 +1,133 @@
 package app;
-import java.util.Scanner;
 
 import exception.BankException;
 import model.Account;
 import repository.AccountRepository;
 import service.AccountService;
+import service.AdminService;
 import service.AuthenticationService;
 import service.TransactionService;
+import util.Menu;
 
-import java.util.ArrayList;
-public class Main {
+import java.util.Scanner;
 
-    public static void showMenu(){
-        System.out.println("================================");
-        System.out.println("      BANK MANAGEMENT SYSTEM    ");
-        System.out.println("==============================");
-        System.out.println("1. Create Account");
-        System.out.println("2. Login");
-        System.out.println("3. Check Balance");
-        System.out.println("4. Deposit Money");
-        System.out.println("5. Withdraw Money");
-        System.out.println("6. View Transaction History");
-        System.out.println("7. Logout");
-        System.out.println("8. Display All Accounts");
-        System.out.println("9. Exit");
-        System.out.println("=================================");
-    }
-
-
+public class Main{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AccountRepository repository = new AccountRepository();
+
         AccountService accountService = new AccountService(repository);
         AuthenticationService authenticationService = new AuthenticationService(repository);
         TransactionService transactionService = new TransactionService(repository);
-        Account loggedInAccount = null;
-        int choice;
-        do {
-            showMenu();
-            System.out.println("Enter your choice: ");
-            choice = scanner.nextInt();
+        AdminService adminService = new AdminService(repository);
 
-            try {
+        boolean applicationRunning = true;
+        while(applicationRunning){
+            Menu.showMainMenu();
 
-                switch (choice) {
+            int choice = scanner.nextInt();
+
+            try{
+                switch (choice){
                     case 1:
                         accountService.createAccount(scanner);
                         break;
-
                     case 2:
-                        loggedInAccount = authenticationService.login(scanner);
-                        break;
+                        Account loggedInAccount = authenticationService.login(scanner);
 
+                        boolean customerLoggedIn = true;
+                        while(customerLoggedIn){
+                            Menu.showCustomerMenu(loggedInAccount);
+
+                            int customerChoice = scanner.nextInt();
+
+                            try{
+                                switch (customerChoice){
+                                    case 1:
+                                        transactionService.checkBalance(loggedInAccount);
+                                        break;
+                                    case 2:
+                                        transactionService.depositMoney(scanner, loggedInAccount);
+                                        repository.updateAccounts();
+                                        break;
+                                    case 3:
+                                        transactionService.withdrawMoney(scanner, loggedInAccount);
+                                        repository.updateAccounts();
+                                        break;
+                                    case 4:
+                                        transactionService.transferMoney(scanner, loggedInAccount);
+                                        repository.updateAccounts();
+                                        break;
+                                    case 5:
+                                        transactionService.viewTransactionHistory(loggedInAccount);
+                                        break;
+                                    case 6:
+                                        transactionService.miniStatement(loggedInAccount, 5);
+                                        break;
+                                    case 7:
+                                        authenticationService.changePIN(scanner,  loggedInAccount);
+                                    case 8:
+                                        authenticationService.logout(loggedInAccount);
+                                        customerLoggedIn = false;
+                                        break;
+                                    default:
+                                        System.out.println("Invalid choice.");
+                                }
+                            }catch(Exception e){
+                                System.out.println("\n ERROR : " + e.getMessage());
+                            }
+                        }
+                    break;
                     case 3:
-                        transactionService.checkBalance(loggedInAccount);
-                        break;
+                        boolean adminLoggedIn = authenticationService.adminLogin(scanner);
 
+                        while(adminLoggedIn){
+                            Menu.showAdminMenu();
+                            int adminChoice = scanner.nextInt();
+                            try{
+                                switch (adminChoice){
+                                    case 1:
+                                        adminService.displayAllAccounts();
+                                        break;
+                                    case 2:
+                                        adminService.searchAccount(scanner);
+                                        break;
+                                    case 3 :
+                                        adminService.searchCustomerByName(scanner);
+                                        break;
+                                    case 4:
+                                        adminService.deleteAccount(scanner);
+                                        break;
+                                    case 5:
+                                        adminService.showTotalCustomers();
+                                        break;
+                                    case 6:
+                                        adminService.showTotalbankBalance();
+                                        break;
+                                    case 7:
+                                        adminLoggedIn = false;
+                                        System.out.println("\nAdmin Logged Out Successfully.");
+                                        break;
+                                    default:
+                                        System.out.println("\nInvalid choice.");
+                                }
+                            } catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                    break;
                     case 4:
-                        transactionService.depositMoney(scanner, loggedInAccount);
+                        applicationRunning = false;
+                        System.out.println("\n===================================");
+                        System.out.println("Thank You For Using Our Bank");
+                        System.out.println("Have a nice day!");
+                        System.out.println("===================================");
                         break;
-
-                    case 5:
-                        transactionService.withdrawMoney(scanner, loggedInAccount);
-                        break;
-
-                    case 6:
-                        transactionService.viewTransactionHistory(loggedInAccount);
-                        break;
-
-                    case 7:
-                        authenticationService.logout();
-                        break;
-
-                    case 8:
-                        accountService.displayAccounts();
-                        break;
-
-                    case 9:
-                        System.out.println("\nThank you for using our Bank Management System.");
-                        break;
-                    default:
-                        System.out.println("\nInvalid Choice! Please try again.");
                 }
+            } catch(BankException e){
+                System.out.println("\nERROR : " + e.getMessage());
             }
-            catch (BankException e){
-                System.out.println("\n==============================");
-                System.out.println("ERROR: " + e.getMessage());
-                System.out.println("==============================");
-            }
-        } while( choice != 8);
+        }
         scanner.close();
     }
 }
