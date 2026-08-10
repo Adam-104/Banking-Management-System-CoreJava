@@ -125,69 +125,67 @@ BankingManagementSystem
 
 ### 🏦 Main Menu
 
-![Main Menu](screenshots/mainmenu.png)
+![Main Menu](src/screenshots/mainmenu.png)
 
 ---
 
-### 👤 Customer Account Creation
+### 👤 Account Creation
 
-![Create Account](screenshots/createaccount.png)
+![Create Account](src/screenshots/createaccount.png)
 
-![Account Created Successfully](screenshots/accountcreated.png)
+### ✅ Account Created Successfully
 
----
-
-### 🔐 Customer Login & Dashboard
-
-![Customer Login and Dashboard](screenshots/customerlogin.png)
+![Account Created](src/screenshots/accountcreated.png)
 
 ---
+
+### 🔐 Customer Login
+
+![Customer Login](src/screenshots/customerlogin.png)
 
 ### 📋 Customer Menu
 
-![Customer Menu Options](screenshots/customermenuoptions.png)
+![Customer Menu Options](src/screenshots/customermenuoptions.png)
 
 ---
 
 ### 💰 Check Balance
 
-![Check Balance](screenshots/checkbalance.png)
+![Check Balance](src/screenshots/checkbalance.png)
 
 ---
 
-### 🛡️ Admin Login
+### 👨‍💼 Admin Login
 
-![Admin Login](screenshots/adminlogin.png)
-
----
+![Admin Login](src/screenshots/adminlogin.png)
 
 ### 🖥️ Admin Dashboard
 
-![Admin Dashboard](screenshots/admindashboard.png)
+![Admin Dashboard](src/screenshots/admindashboard.png)
 
 ---
 
 ### 📊 Bank Statistics
 
-![Bank Statistics](screenshots/bankstatistics.png)
+![Bank Statistics](src/screenshots/bankstatistics.png)
 
 ---
 
-### 📄 Customer Report Export
+### 📄 Customer Report
 
-![Export Customer Report](screenshots/exportcustomerreport.png)
+![Customer Report](src/screenshots/exportcustomerreport.png)
 
 ---
 
-### 🔓 Account Unlock
+### 🔒 Account Lock
 
-![Account Unlock](screenshots/accountunlock.png)
+![Account Lock](src/screenshots/accountunlock.png)
 
 ---
 
 ### 🚪 Admin Logout
 
-![Admin Logout](screenshots/adminlogout.png)
+![Admin Logout](src/screenshots/adminlogout.png)
 
 ---
 
