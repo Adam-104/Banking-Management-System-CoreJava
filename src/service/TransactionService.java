@@ -41,7 +41,7 @@ public class TransactionService {
         System.out.print("Enter Deposit Amount: ");
         double amount = scanner.nextDouble();
 
-        if (amount < 0){
+        if (amount <= 0){
             throw new InvalidAmountException("Deposit Amount must be greater than 0!");
         }
 
@@ -60,6 +60,7 @@ public class TransactionService {
             InsufficientBalanceException {
         if (loggedInAccount == null){
             System.out.println("Please Login First!");
+            return;
         }
 
         System.out.print("Enter Withdraw Amount: ");
@@ -94,7 +95,7 @@ public class TransactionService {
         long receiverAccountNumber = scanner.nextLong();
 
         if (receiverAccountNumber == loggedInAccount.getAccountNumber()){
-            throw new AccountNotFoundException("Account Transfer Money to your own Account.");
+            throw new SameAccountTransferException("You cannot transfer money to your own Account.");
         }
 
         Account receiverAccount = repository.findByAccountNumber(receiverAccountNumber);
@@ -120,7 +121,7 @@ public class TransactionService {
         loggedInAccount.getTransactions().add(
                 new Transaction("Transfer", amount, "Transferred to A/C : " + receiverAccount.getAccountNumber()));
         receiverAccount.getTransactions().add(
-                new Transaction("Received", amount, "Received from A/C : " + receiverAccount.getAccountNumber()));
+                new Transaction("Received", amount, "Received from A/C : " + loggedInAccount.getAccountNumber()));
         notificationService.sendNotification(
                 amount + " Transferred Successfully to Account " + receiverAccount.getAccountNumber()
                         + "!\nCurrent Balance : " + loggedInAccount.getBalance());

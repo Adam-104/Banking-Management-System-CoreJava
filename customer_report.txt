@@ -1,0 +1,63 @@
+====================================================
+                 BANK CUSTOMER REPORT
+====================================================
+
+Account Number: 789456123654
+Customer Name: vinay
+Account Type: CurrentAccount
+Balance        : ₹6000.00
+Transactions: 1
+----------------------------------------------------
+
+Account Number: 456789123456
+Customer Name: saleem
+Account Type: CurrentAccount
+Balance        : ₹10002499.00
+Transactions: 3
+----------------------------------------------------
+
+Account Number: 151706277150
+Customer Name: silar
+Account Type: SavingsAccount
+Balance        : ₹5000.00
+Transactions: 1
+----------------------------------------------------
+
+Account Number: 515757420745
+Customer Name: srinu
+Account Type: CurrentAccount
+Balance        : ₹8000.00
+Transactions: 1
+----------------------------------------------------
+
+Account Number: 553527103919
+Customer Name: abhilash
+Account Type: SavingsAccount
+Balance        : ₹6500.00
+Transactions: 2
+----------------------------------------------------
+
+Account Number: 320705983737
+Customer Name: hari
+Account Type: SavingsAccount
+Balance        : ₹5800.00
+Transactions: 3
+----------------------------------------------------
+
+Account Number: 660310422146
+Customer Name: BhramaChari
+Account Type: SavingsAccount
+Balance        : ₹1063.00
+Transactions: 2
+----------------------------------------------------
+
+Account Number: 361661720509
+Customer Name: raju
+Account Type: SavingsAccount
+Balance        : ₹5000.00
+Transactions: 1
+----------------------------------------------------
+
+====================================================
+                 END OF REPORT
+====================================================

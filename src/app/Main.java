@@ -11,7 +11,7 @@ import util.Menu;
 
 import java.util.Scanner;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AccountRepository repository = new AccountRepository();
@@ -22,13 +22,13 @@ public class Main{
         AdminService adminService = new AdminService(repository);
 
         boolean applicationRunning = true;
-        while(applicationRunning){
+        while (applicationRunning) {
             Menu.showMainMenu();
 
             int choice = scanner.nextInt();
 
-            try{
-                switch (choice){
+            try {
+                switch (choice) {
                     case 1:
                         accountService.createAccount(scanner);
                         break;
@@ -36,13 +36,13 @@ public class Main{
                         Account loggedInAccount = authenticationService.login(scanner);
 
                         boolean customerLoggedIn = true;
-                        while(customerLoggedIn){
+                        while (customerLoggedIn) {
                             Menu.showCustomerMenu(loggedInAccount);
 
                             int customerChoice = scanner.nextInt();
 
-                            try{
-                                switch (customerChoice){
+                            try {
+                                switch (customerChoice) {
                                     case 1:
                                         transactionService.checkBalance(loggedInAccount);
                                         break;
@@ -65,7 +65,8 @@ public class Main{
                                         transactionService.miniStatement(loggedInAccount, 5);
                                         break;
                                     case 7:
-                                        authenticationService.changePIN(scanner,  loggedInAccount);
+                                        authenticationService.changePIN(scanner, loggedInAccount);
+                                        break;
                                     case 8:
                                         authenticationService.logout(loggedInAccount);
                                         customerLoggedIn = false;
@@ -73,26 +74,26 @@ public class Main{
                                     default:
                                         System.out.println("Invalid choice.");
                                 }
-                            }catch(Exception e){
+                            } catch (Exception e) {
                                 System.out.println("\n ERROR : " + e.getMessage());
                             }
                         }
-                    break;
+                        break;
                     case 3:
                         boolean adminLoggedIn = authenticationService.adminLogin(scanner);
 
-                        while(adminLoggedIn){
+                        while (adminLoggedIn) {
                             Menu.showAdminMenu();
                             int adminChoice = scanner.nextInt();
-                            try{
-                                switch (adminChoice){
+                            try {
+                                switch (adminChoice) {
                                     case 1:
                                         adminService.displayAllAccounts();
                                         break;
                                     case 2:
                                         adminService.searchAccount(scanner);
                                         break;
-                                    case 3 :
+                                    case 3:
                                         adminService.searchCustomerByName(scanner);
                                         break;
                                     case 4:
@@ -102,20 +103,32 @@ public class Main{
                                         adminService.showTotalCustomers();
                                         break;
                                     case 6:
-                                        adminService.showTotalbankBalance();
+                                        adminService.showTotalBankBalance();
                                         break;
                                     case 7:
+                                        adminService.sortAccounts(scanner);
+                                        break;
+                                    case 8:
+                                        adminService.shoeBankStatistics(scanner);
+                                        break;
+                                    case 9:
+                                        adminService.exportCustomerReport();
+                                        break;
+                                    case 10:
+                                        adminService.unlockAccount(scanner);
+                                        break;
+                                    case 11:
                                         adminLoggedIn = false;
                                         System.out.println("\nAdmin Logged Out Successfully.");
                                         break;
                                     default:
                                         System.out.println("\nInvalid choice.");
                                 }
-                            } catch(Exception e){
+                            } catch (Exception e) {
                                 System.out.println(e.getMessage());
                             }
                         }
-                    break;
+                        break;
                     case 4:
                         applicationRunning = false;
                         System.out.println("\n===================================");
@@ -124,7 +137,7 @@ public class Main{
                         System.out.println("===================================");
                         break;
                 }
-            } catch(BankException e){
+            } catch (BankException e) {
                 System.out.println("\nERROR : " + e.getMessage());
             }
         }

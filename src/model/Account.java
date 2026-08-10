@@ -10,6 +10,8 @@ public abstract class Account implements Serializable{
     private String customerName;
     private  int pin;
     private double balance;
+    private int failedLoginAttempts = 0;
+    private boolean locked;
 
     private ArrayList<Transaction> transactions;
 
@@ -48,5 +50,17 @@ public abstract class Account implements Serializable{
     }
     public void setBalance(double balance){
         this.balance = balance;
+    }
+    public int getFailedLoginAttempts(){
+        return failedLoginAttempts;
+    }
+    public void setFailedLoginAttempts(int failedLoginAttempts){
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+    public boolean isLocked(){
+        return locked;
+    }
+    public void setLocked(boolean locked){
+        this.locked = locked;
     }
 }

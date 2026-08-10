@@ -4,12 +4,10 @@ import exception.BankException;
 import model.Account;
 import model.SavingsAccount;
 import model.CurrentAccount;
-import model.Transaction;
 import notification.NotificationService;
 import notification.SMSNotification;
 import repository.AccountRepository;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountService {

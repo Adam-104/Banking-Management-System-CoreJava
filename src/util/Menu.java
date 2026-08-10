@@ -16,7 +16,7 @@ public class Menu {
         System.out.print("Enter your choice : ");
     }
 
-    public static void showCustomerMenu(Account account){
+    public static void showCustomerMenu(Account account) {
         System.out.println("\n============================================");
         System.out.println("        CUSTOMER DASHBOARD          ");
         System.out.println("==============================================");
@@ -37,7 +37,7 @@ public class Menu {
         System.out.print("Enter your choice : ");
     }
 
-    public static void showAdminMenu(){
+    public static void showAdminMenu() {
         System.out.println("\n============================================");
         System.out.println("            ADMIN DASHBOARD          ");
         System.out.println("==============================================");
@@ -47,7 +47,11 @@ public class Menu {
         System.out.println("4. Delete Account");
         System.out.println("5. Total Customers");
         System.out.println("6. Total Bank Balance");
-        System.out.println("7. Logout");
+        System.out.println("7. Sort Accounts");
+        System.out.println("8. Bank Statistics");
+        System.out.println("9. Export Customer Report");
+        System.out.println("10. Unlock Account");
+        System.out.println("11. Logout");
         System.out.println("==============================================");
         System.out.print("Enter your choice : ");
     }
